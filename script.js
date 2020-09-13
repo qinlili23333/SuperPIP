@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         超级画中画
+// @name         超级画中画+倍速
 // @namespace     https://www.zhihu.com/people/qinlili233
-// @version      0.1
-// @description  只要是视频,它就能画中画
+// @version      0.2
+// @description  画中画切换+倍速切换
 // @author       琴梨梨
 // @grant        none
 // @match        */*
@@ -14,6 +14,7 @@
     //初始化视频数量
     let videoID=0
     let pipON=false
+    let rate=1
     //注册键盘监听
     document.onkeydown = function (event) {
         var e = event || window.event;
@@ -48,6 +49,19 @@
                     videoID--;
                 }
             }
+        }
+        if (e && e.keyCode == 219) {
+            //按下左括号
+            rate=rate-0.1;
+            document.getElementsByTagName("video")[videoID].playbackRate=rate;
+            console.log("第"+videoID+"个视频"+rate+"倍速");
+        }
+        if (e && e.keyCode == 221) {
+            //按下右括号
+            rate=rate+0.1;
+            document.getElementsByTagName("video")[videoID].playbackRate=rate;
+            console.log("第"+videoID+"个视频"+rate+"倍速");
+
         }
 
     };
