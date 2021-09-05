@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         超级画中画+倍速
+// @name         超级画中画助手
 // @namespace     https://www.zhihu.com/people/qinlili233
-// @version      0.2
-// @description  画中画切换+倍速切换
+// @version      0.3
+// @description  画中画切换+倍速切换+AltEnter全屏切换
 // @author       琴梨梨
 // @grant        none
 // @match        */*
-//@run-at  document-end
+//@run-at  document-idle
 // ==/UserScript==
 
 (function() {
@@ -15,6 +15,7 @@
     let videoID=0
     let pipON=false
     let rate=1
+    let fullscreen=0
     //注册键盘监听
     document.onkeydown = function (event) {
         var e = event || window.event;
@@ -63,6 +64,15 @@
             console.log("第"+videoID+"个视频"+rate+"倍速");
 
         }
-
+        if (e && e.keyCode == 13 && e.altKey) {
+            //Alt+Enter
+            if(fullscreen==0){
+                document.getElementsByTagName("video")[videoID].requestFullscreen();
+                fullscreen=1;
+            }else{
+                document.exitFullscreen();
+                fullscreen=0;
+            }
+        }
     };
 })();
